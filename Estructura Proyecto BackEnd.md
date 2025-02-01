@@ -10,9 +10,6 @@
 │ │ ├── N5.Permissions.Api.csproj
 │ │ ├── Program.cs
 │ │ ├── 📁 Configurations
-│ │ ├── 📁 DTOs
-│ │ │ ├── PermissionDto.cs
-│ │ │ ├── PermissionTypeDto.cs
 │ │ ├── 📁 Controllers
 │ │ │ ├── PermissionController.cs
 │ │ │ ├── PermissionTypeController.cs
@@ -28,6 +25,9 @@
 │ │ │ │ ├── UpdatePermissionCommand.cs
 │ │ │ ├── 📁 PermissionTypeCommand
 │ │ │ │ ├── CreatePermissionTypeCommand.cs
+│ │ ├── 📁 DTOs
+│ │ │ ├── PermissionDto.cs
+│ │ │ ├── PermissionTypeDto.cs
 │ │ ├── 📁 Handlers
 │ │ │ ├── 📁 PermissionHandler
 │ │ │ │ ├── CreatePermissionHandler.cs
@@ -50,6 +50,8 @@
 │ │ │ ├── 📁 PermissionTypeQuerie
 │ │ │ │ ├── GetPermissionTypesQuery.cs
 │ │ ├── 📁 Services
+│ │ │ │ ├── TokenService.cs
+│ │ │ │ ├── UserService.cs
 │ ├── 📁 N5.Permissions.Domain
 │ │ ├── N5.Permissions.Domain.csproj
 │ │ ├── 📁 Entities
@@ -66,6 +68,8 @@
 │ │ ├── 📁 Elasticsearch
 │ │ │ ├── 📁 Services
 │ │ │ │ ├── ElasticsearchService.cs
+│ │ │ ├── 📁 Models
+│ │ │ │ ├── EsPermissionDoc.cs
 │ │ ├── 📁 Migrations
 │ │ │ ├── 20250130151401_InitialCreate.cs
 │ │ │ ├── ApplicationDbContextModelSnapshot.cs
@@ -78,7 +82,9 @@
 │ │ ├── 📁 Logging
 │ ├── 📁 N5.Permissions.Tests
 │ │ ├── N5.Permissions.Tests.csproj
-│ │ ├── UnitTest1.cs
+│ │ ├── 📁 IntegrationTests
+│ │ │ ├── 📁 ApplicationTest
+│ │ │ ├── 📁 InfrastructureTest
 │ │ ├── 📁 UnitTests
 │ │ │ ├── 📁 ApplicationTest
 │ │ │ ├── 📁 InfrastructureTest
