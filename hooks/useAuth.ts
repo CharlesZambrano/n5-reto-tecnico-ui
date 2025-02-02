@@ -2,6 +2,7 @@
 
 "use client";
 
+import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -23,6 +24,7 @@ export const useAuth = () => {
       if (response.token) {
         setToken(response.token);
         localStorage.setItem("jwtToken", response.token);
+        Cookies.set("jwtToken", response.token, { expires: 1 }); // Guardamos el token en cookies por 1 día
 
         // Asignamos el nombre de usuario de forma estática
         if (username.toLowerCase() === "admin") {
@@ -54,6 +56,7 @@ export const useAuth = () => {
     clearAuth();
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("username");
+    Cookies.remove("jwtToken"); // Eliminamos el token de las cookies al cerrar sesión
     router.push("/auth");
   };
 

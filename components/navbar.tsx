@@ -96,7 +96,7 @@ export const Navbar = () => {
               <p className="font-semibold">{username}</p>
             </DropdownItem>
             <DropdownItem key="settings">Configuración</DropdownItem>
-            <DropdownItem key="logout" color="danger" onClick={logout}>
+            <DropdownItem key="logout" color="danger" onPress={logout}>
               Cerrar Sesión
             </DropdownItem>
           </DropdownMenu>
