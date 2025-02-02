@@ -17,7 +17,8 @@ import {
 import { useCallback, useMemo, useState } from "react";
 import useSWR from "swr";
 
-import { SearchIcon } from "@/components/icons";
+import { SearchIcon } from "./icons";
+
 import { PermissionTypeDrawer } from "@/components/permissionTypeDrawer";
 import { getPermissionTypes } from "@/services/permissionTypeService";
 import { usePermissionTypeDrawerStore } from "@/store/permissionTypeDrawerStore";
