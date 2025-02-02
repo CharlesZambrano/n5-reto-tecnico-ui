@@ -3,6 +3,7 @@
 import "@/styles/globals.css";
 import clsx from "clsx";
 import { Metadata, Viewport } from "next";
+import { Toaster } from "sonner";
 
 import { Providers } from "./providers";
 
@@ -45,12 +46,13 @@ export default function RootLayout({
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
           <div className="flex flex-col min-h-screen">
-            <ConditionalNavbar /> {/* Aquí usamos el Navbar condicional */}
+            <ConditionalNavbar />
             <main className="flex-grow container mx-auto px-4 py-6">
               {children}
             </main>
           </div>
         </Providers>
+        <Toaster richColors position="top-center" />{" "}
       </body>
     </html>
   );

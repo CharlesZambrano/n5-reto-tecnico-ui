@@ -18,7 +18,9 @@ import { useCallback, useMemo, useState } from "react";
 import useSWR from "swr";
 
 import { SearchIcon } from "@/components/icons";
+import { PermissionTypeDrawer } from "@/components/permissionTypeDrawer";
 import { getPermissionTypes } from "@/services/permissionTypeService";
+import { usePermissionTypeDrawerStore } from "@/store/permissionTypeDrawerStore";
 import { PermissionType } from "@/types/permissionType";
 
 const fetcher = async () => {
@@ -31,28 +33,27 @@ export const PermissionTypeTable = () => {
   const [filterValue, setFilterValue] = useState("");
   const [page, setPage] = useState(1);
   const rowsPerPage = 5;
+  const openDrawer = usePermissionTypeDrawerStore((state) => state.openDrawer);
 
   const { data, isLoading } = useSWR("/permissiontype", fetcher, {
     keepPreviousData: true,
   });
 
-  // Filtrado por descripción y código
   const filteredItems = useMemo(() => {
     if (!data) return [];
     if (!filterValue) return data;
 
-    return data.filter((item: PermissionType) => {
-      const searchTerm = filterValue.toLowerCase();
+    const searchTerm = filterValue.toLowerCase();
 
-      return (
+    return data.filter(
+      (item: PermissionType) =>
         item.description.toLowerCase().includes(searchTerm) ||
+        // eslint-disable-next-line prettier/prettier
         (item.code && item.code.toLowerCase().includes(searchTerm))
-      );
-    });
+    );
   }, [data, filterValue]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
-
   const paginatedItems = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
 
@@ -69,12 +70,10 @@ export const PermissionTypeTable = () => {
     setPage(1);
   }, []);
 
-  // Ajustamos loadingState a solo "loading" o "idle"
   const loadingState = isLoading ? "loading" : "idle";
 
   return (
     <div className="overflow-x-auto rounded-lg">
-      {/* Ajustamos la separación entre el input y el botón */}
       <div className="flex justify-between items-center mb-4">
         <Input
           isClearable
@@ -85,8 +84,7 @@ export const PermissionTypeTable = () => {
           onClear={handleClearSearch}
           onValueChange={handleSearchChange}
         />
-        {/* Agregamos margen izquierdo para separar el botón del input */}
-        <Button className="ml-4" color="primary" onPress={() => setPage(1)}>
+        <Button className="ml-4" color="primary" onPress={openDrawer}>
           Add New Type
         </Button>
       </div>
@@ -126,6 +124,9 @@ export const PermissionTypeTable = () => {
           )}
         </TableBody>
       </Table>
+
+      {/* Drawer separado */}
+      <PermissionTypeDrawer />
     </div>
   );
 };
