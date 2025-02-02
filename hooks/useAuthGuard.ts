@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 
 import { useAuthStore } from "@/store/authStore";
 
-// Hook para proteger componentes que requieren autenticación
 export const useAuthGuard = () => {
   const router = useRouter();
   const { token, isAuthenticated } = useAuthStore();
@@ -19,9 +18,9 @@ export const useAuthGuard = () => {
     if (!token && !storedToken) {
       router.push("/auth");
     } else {
-      setIsCheckingAuth(false); // Deja de verificar si el token es válido
+      setIsCheckingAuth(false);
     }
   }, [token, isAuthenticated, router]);
 
-  return { isCheckingAuth }; // Retornamos el estado de la verificación
+  return { isCheckingAuth };
 };

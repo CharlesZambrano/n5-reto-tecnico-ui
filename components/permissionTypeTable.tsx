@@ -126,7 +126,6 @@ export const PermissionTypeTable = () => {
         </TableBody>
       </Table>
 
-      {/* Drawer separado */}
       <PermissionTypeDrawer />
     </div>
   );

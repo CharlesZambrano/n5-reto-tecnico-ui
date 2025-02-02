@@ -40,7 +40,7 @@ export const Navbar = () => {
           className="text-xl font-bold text-blue-600 cursor-pointer"
           onClick={() => router.push("/")}
         >
-          MyApp
+          N5 App
         </NavbarBrand>
 
         <NavbarContent className="hidden md:flex gap-4">
@@ -49,7 +49,7 @@ export const Navbar = () => {
               className="text-gray-700 hover:text-blue-600"
               href="/permissions/list"
             >
-              Permisos
+              Permmissions
             </Link>
           </NavbarItem>
           <NavbarItem>
@@ -57,7 +57,7 @@ export const Navbar = () => {
               className="text-gray-700 hover:text-blue-600"
               href="/permissionTypes/list"
             >
-              Tipos de Permisos
+              Permissions Type
             </Link>
           </NavbarItem>
         </NavbarContent>
@@ -72,7 +72,7 @@ export const Navbar = () => {
             inputWrapper:
               "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
           }}
-          placeholder="Buscar permisos..."
+          placeholder="Search Permmissions..."
           size="sm"
           startContent={<SearchIcon size={18} />}
           type="search"
@@ -85,19 +85,18 @@ export const Navbar = () => {
               as="button"
               className="transition-transform"
               color="default"
-              name={username || "Usuario"}
+              name={username || "User"}
               size="sm"
               src="https://img.icons8.com/comic/100/user.png"
             />
           </DropdownTrigger>
           <DropdownMenu aria-label="Opciones de Perfil" variant="flat">
             <DropdownItem key="profile" className="h-14 gap-2">
-              <p className="font-semibold">Sesión iniciada como</p>
+              <p className="font-semibold">Logged in as</p>
               <p className="font-semibold">{username}</p>
             </DropdownItem>
-            <DropdownItem key="settings">Configuración</DropdownItem>
             <DropdownItem key="logout" color="danger" onPress={logout}>
-              Cerrar Sesión
+              Close Session
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>

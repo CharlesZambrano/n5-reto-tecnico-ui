@@ -30,10 +30,10 @@ export default function HomePage() {
   return (
     <div className="flex flex-col items-center justify-center h-full">
       <h1 className="text-3xl font-bold text-gray-800 mb-4">
-        ¡Bienvenido a la Aplicación!
+        Welcome to the App!
       </h1>
       <p className="text-lg text-gray-600">
-        Usa el menú de navegación para gestionar permisos y tipos de permisos.
+        Use the navigation menu to manage permissions and permission types.
       </p>
     </div>
   );

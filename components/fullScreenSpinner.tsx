@@ -12,7 +12,7 @@ export const FullScreenSpinner = () => {
           label: "text-white mt-4",
         }}
         color="primary"
-        label="Cargando..."
+        label="Loading..."
         labelColor="primary"
         size="lg"
       />

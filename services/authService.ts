@@ -2,7 +2,6 @@
 
 import api from "@/config/api";
 
-// Servicio para manejar la autenticación
 export const loginService = async (username: string, password: string) => {
   const response = await api.post("/auth/login", {
     username,

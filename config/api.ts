@@ -9,7 +9,6 @@ const api = axios.create({
   },
 });
 
-// Interceptor para agregar el token JWT en las solicitudes
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("jwtToken");
 

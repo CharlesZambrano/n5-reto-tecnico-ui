@@ -42,11 +42,9 @@ export const PermissionDrawer = () => {
   const [permissionTypes, setPermissionTypes] = useState<PermissionType[]>([]);
   const [submitted, setSubmitted] = useState(false);
 
-  // Configuración inicial al abrir el Drawer
   useEffect(() => {
     if (isOpen) {
       if (selectedPermission) {
-        // Cargar datos para edición
         updateFormData("employeeName", selectedPermission.employeeName);
         updateFormData("employeeSurname", selectedPermission.employeeSurname);
         updateFormData(
@@ -60,14 +58,12 @@ export const PermissionDrawer = () => {
           selectedPermission.permissionDate.split("T")[0]
         );
       } else {
-        // Resetear formulario al crear nuevo permiso
         resetForm();
       }
       setSubmitted(false);
     }
   }, [isOpen, selectedPermission, updateFormData, resetForm]);
 
-  // Obtener tipos de permisos
   useEffect(() => {
     const fetchPermissionTypes = async () => {
       const types = await getPermissionTypes();
@@ -94,7 +90,6 @@ export const PermissionDrawer = () => {
     e.preventDefault();
     setSubmitted(true);
 
-    // Validación manual
     const { employeeName, employeeSurname, permissionTypeId, permissionDate } =
       formData;
 
@@ -104,7 +99,6 @@ export const PermissionDrawer = () => {
       !permissionTypeId.trim() ||
       !permissionDate.trim()
     ) {
-      // Si algo está vacío, no continuamos
       return;
     }
 
@@ -153,7 +147,6 @@ export const PermissionDrawer = () => {
         <DrawerBody>
           <Form className="space-y-4" onSubmit={handleSubmit}>
             <Input
-              /* Validación manual con submitted */
               errorMessage={
                 submitted && !formData.employeeName.trim()
                   ? "Employee name is required"

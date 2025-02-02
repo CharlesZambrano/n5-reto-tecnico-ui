@@ -34,9 +34,9 @@ export const PermissionTypeDrawer = () => {
 
     await handleApiResponse(async () => {
       await createPermissionType(formData.description, formData.code);
-      mutate("/permissiontype"); // Refresca los datos en la tabla
+      mutate("/permissiontype");
       closeDrawer();
-      resetForm(); // Limpia el formulario al cerrar el drawer
+      resetForm();
     }, "Permission type created successfully!");
 
     setLoading(false);

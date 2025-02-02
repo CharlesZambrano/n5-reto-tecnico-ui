@@ -2,7 +2,6 @@
 
 import { create } from "zustand";
 
-// Definimos la estructura del estado del drawer
 interface PermissionTypeDrawerState {
   isOpen: boolean;
   formData: {
@@ -15,7 +14,6 @@ interface PermissionTypeDrawerState {
   resetForm: () => void;
 }
 
-// Creamos el store de Zustand
 export const usePermissionTypeDrawerStore = create<PermissionTypeDrawerState>(
   (set) => ({
     isOpen: false,

@@ -80,7 +80,7 @@ export const PermissionTable = () => {
         <Input
           isClearable
           className="w-full max-w-md"
-          placeholder="Search by employee name, surname, or permission type..."
+          placeholder="Search by employee name, surname, or permission type... "
           startContent={<SearchIcon />}
           value={filterValue}
           onClear={handleClearSearch}
