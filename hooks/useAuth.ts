@@ -14,17 +14,17 @@ export const useAuth = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Función para iniciar sesión
   const login = async (username: string, password: string) => {
     setLoading(true);
     setError(null);
     try {
-      const { token } = await loginService(username, password);
+      const { token, user } = await loginService(username, password);
 
       setToken(token);
-      localStorage.setItem("jwtToken", token); // Guardamos el token en localStorage
+      localStorage.setItem("jwtToken", token);
+      localStorage.setItem("username", user.username);
 
-      router.push("/permissions/list"); // Redirigimos al listado de permisos tras el login
+      router.push("/permissions/list");
     } catch (err: any) {
       if (err.response && err.response.data) {
         setError(err.response.data.detail || "Login failed.");
@@ -36,11 +36,11 @@ export const useAuth = () => {
     }
   };
 
-  // Función para cerrar sesión
   const logout = () => {
     clearAuth();
     localStorage.removeItem("jwtToken");
-    router.push("/auth"); // Redirigimos al login tras el logout
+    localStorage.removeItem("username");
+    router.push("/auth");
   };
 
   return { login, logout, loading, error };

@@ -14,15 +14,21 @@ export default function HomePage() {
   useEffect(() => {
     const storedToken = localStorage.getItem("jwtToken");
 
-    // Si el usuario está autenticado, redirigir al listado de permisos
-    if (token || storedToken) {
-      router.push("/permissions/list");
-    } else {
-      // Si no está autenticado, redirigir al login
+    // Si NO está autenticado, redirigir al login
+    if (!token && !storedToken) {
       router.push("/auth");
     }
   }, [token, router]);
 
-  // Mientras redirige, no muestra nada en pantalla
-  return null;
+  // Si está autenticado, mostrar la pantalla de bienvenida
+  return (
+    <div className="flex flex-col items-center justify-center h-full">
+      <h1 className="text-3xl font-bold text-gray-800 mb-4">
+        ¡Bienvenido a la Aplicación!
+      </h1>
+      <p className="text-lg text-gray-600">
+        Usa el menú de navegación para gestionar permisos y tipos de permisos.
+      </p>
+    </div>
+  );
 }
