@@ -1,5 +1,7 @@
 // *? n5-reto-tecnico-ui/components/navbar.tsx
 
+// *? n5-reto-tecnico-ui/components/navbar.tsx
+
 "use client";
 
 import { Link } from "@heroui/link";
@@ -15,7 +17,7 @@ import {
   NavbarContent,
   NavbarItem,
 } from "@heroui/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { SearchIcon } from "./icons";
@@ -26,12 +28,26 @@ export const Navbar = () => {
   const { logout } = useAuth();
   const router = useRouter();
   const [username, setUsername] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
 
     setUsername(storedUsername);
   }, []);
+
+  useEffect(() => {
+    const query = searchParams.get("query");
+
+    if (query) setSearchQuery(query);
+  }, [searchParams]);
+
+  const handleSearchSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && searchQuery.trim() !== "") {
+      router.push(`/?query=${encodeURIComponent(searchQuery)}`);
+    }
+  };
 
   return (
     <HeroNavbar isBordered className="bg-white shadow-md">
@@ -49,7 +65,7 @@ export const Navbar = () => {
               className="text-gray-700 hover:text-blue-600"
               href="/permissions/list"
             >
-              Permmissions
+              Permissions
             </Link>
           </NavbarItem>
           <NavbarItem>
@@ -57,7 +73,7 @@ export const Navbar = () => {
               className="text-gray-700 hover:text-blue-600"
               href="/permissionTypes/list"
             >
-              Permissions Type
+              Permission Types
             </Link>
           </NavbarItem>
         </NavbarContent>
@@ -66,16 +82,19 @@ export const Navbar = () => {
       <NavbarContent as="div" className="items-center" justify="end">
         <Input
           classNames={{
-            base: "max-w-full sm:max-w-[10rem] h-10",
+            base: "max-w-full sm:max-w-[20rem] h-10",
             mainWrapper: "h-full",
             input: "text-small",
             inputWrapper:
               "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
           }}
-          placeholder="Search Permmissions..."
+          placeholder="Search Permissions..."
           size="sm"
           startContent={<SearchIcon size={18} />}
           type="search"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onKeyDown={handleSearchSubmit}
         />
 
         <Dropdown placement="bottom-end">
