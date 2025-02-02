@@ -1,56 +1,40 @@
-import { Link } from "@heroui/link";
-import { Snippet } from "@heroui/snippet";
-import { Code } from "@heroui/code";
-import { button as buttonStyles } from "@heroui/theme";
+// *? n5-reto-tecnico-ui/app/page.tsx
 
-import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
+"use client";
 
-export default function Home() {
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
+import { FullScreenSpinner } from "@/components/fullScreenSpinner";
+import { useAuthStore } from "@/store/authStore";
+
+export default function HomePage() {
+  const router = useRouter();
+  const { token } = useAuthStore();
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("jwtToken");
+
+    if (!token && !storedToken) {
+      router.push("/auth");
+    } else {
+      setIsCheckingAuth(false);
+    }
+  }, [token, router]);
+
+  if (isCheckingAuth) {
+    return <FullScreenSpinner />;
+  }
+
   return (
-    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <div className="inline-block max-w-xl text-center justify-center">
-        <span className={title()}>Make&nbsp;</span>
-        <span className={title({ color: "violet" })}>beautiful&nbsp;</span>
-        <br />
-        <span className={title()}>
-          websites regardless of your design experience.
-        </span>
-        <div className={subtitle({ class: "mt-4" })}>
-          Beautiful, fast and modern React UI library.
-        </div>
-      </div>
-
-      <div className="flex gap-3">
-        <Link
-          isExternal
-          className={buttonStyles({
-            color: "primary",
-            radius: "full",
-            variant: "shadow",
-          })}
-          href={siteConfig.links.docs}
-        >
-          Documentation
-        </Link>
-        <Link
-          isExternal
-          className={buttonStyles({ variant: "bordered", radius: "full" })}
-          href={siteConfig.links.github}
-        >
-          <GithubIcon size={20} />
-          GitHub
-        </Link>
-      </div>
-
-      <div className="mt-8">
-        <Snippet hideCopyButton hideSymbol variant="bordered">
-          <span>
-            Get started by editing <Code color="primary">app/page.tsx</Code>
-          </span>
-        </Snippet>
-      </div>
-    </section>
+    <div className="flex flex-col items-center justify-center h-full">
+      <h1 className="text-3xl font-bold text-gray-800 mb-4">
+        ¡Bienvenido a la Aplicación!
+      </h1>
+      <p className="text-lg text-gray-600">
+        Usa el menú de navegación para gestionar permisos y tipos de permisos.
+      </p>
+    </div>
   );
 }
