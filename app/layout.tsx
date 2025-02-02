@@ -6,7 +6,7 @@ import { Metadata, Viewport } from "next";
 
 import { Providers } from "./providers";
 
-import { Navbar } from "@/components/navbar";
+import { ConditionalNavbar } from "@/components/conditionalNavbar";
 import { fontSans } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
 
@@ -34,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning lang="en">
+    <html suppressHydrationWarning lang="es">
       <head />
       <body
         className={clsx(
@@ -45,7 +45,7 @@ export default function RootLayout({
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
           <div className="flex flex-col min-h-screen">
-            <Navbar /> {/* Navbar Global */}
+            <ConditionalNavbar /> {/* Aquí usamos el Navbar condicional */}
             <main className="flex-grow container mx-auto px-4 py-6">
               {children}
             </main>

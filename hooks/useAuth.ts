@@ -18,18 +18,32 @@ export const useAuth = () => {
     setLoading(true);
     setError(null);
     try {
-      const { token, user } = await loginService(username, password);
+      const response = await loginService(username, password);
 
-      setToken(token);
-      localStorage.setItem("jwtToken", token);
-      localStorage.setItem("username", user.username);
+      if (response.token) {
+        setToken(response.token);
+        localStorage.setItem("jwtToken", response.token);
 
-      router.push("/permissions/list");
+        // Asignamos el nombre de usuario de forma estática
+        if (username.toLowerCase() === "admin") {
+          localStorage.setItem("username", "Administrador");
+        } else if (username.toLowerCase() === "user") {
+          localStorage.setItem("username", "Usuario");
+        } else {
+          localStorage.setItem("username", username);
+        }
+
+        router.push("/permissions/list");
+      } else {
+        setError("Token not provided in the response.");
+      }
     } catch (err: any) {
       if (err.response && err.response.data) {
-        setError(err.response.data.detail || "Login failed.");
+        setError(err.response.data.detail || "Username or password incorrect.");
+      } else if (err.message) {
+        setError(`Login failed: ${err.message}`);
       } else {
-        setError("Login failed.");
+        setError("An unexpected error occurred.");
       }
     } finally {
       setLoading(false);

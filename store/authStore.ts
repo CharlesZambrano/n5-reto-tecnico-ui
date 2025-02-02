@@ -11,9 +11,14 @@ interface AuthState {
 }
 
 // Creamos el store de Zustand para manejar el estado global de autenticación
-export const useAuthStore = create<AuthState>((set) => ({
-  token: null,
-  isAuthenticated: false,
-  setToken: (token) => set({ token, isAuthenticated: true }),
-  clearAuth: () => set({ token: null, isAuthenticated: false }),
-}));
+export const useAuthStore = create<AuthState>((set) => {
+  const storedToken =
+    typeof window !== "undefined" ? localStorage.getItem("jwtToken") : null;
+
+  return {
+    token: storedToken,
+    isAuthenticated: !!storedToken,
+    setToken: (token) => set({ token, isAuthenticated: true }),
+    clearAuth: () => set({ token: null, isAuthenticated: false }),
+  };
+});

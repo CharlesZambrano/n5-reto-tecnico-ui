@@ -3,24 +3,30 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
+import { FullScreenSpinner } from "@/components/fullScreenSpinner";
 import { useAuthStore } from "@/store/authStore";
 
 export default function HomePage() {
   const router = useRouter();
   const { token } = useAuthStore();
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("jwtToken");
 
-    // Si NO está autenticado, redirigir al login
     if (!token && !storedToken) {
       router.push("/auth");
+    } else {
+      setIsCheckingAuth(false);
     }
   }, [token, router]);
 
-  // Si está autenticado, mostrar la pantalla de bienvenida
+  if (isCheckingAuth) {
+    return <FullScreenSpinner />;
+  }
+
   return (
     <div className="flex flex-col items-center justify-center h-full">
       <h1 className="text-3xl font-bold text-gray-800 mb-4">
