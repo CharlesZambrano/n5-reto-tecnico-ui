@@ -1,53 +1,138 @@
-# Next.js & HeroUI Template
+# N5 Technical Challenge - Frontend
 
-This is a template for creating applications using Next.js 14 (app directory) and HeroUI (v2).
+Este proyecto es la interfaz de usuario para el **N5 Technical Challenge**, desarrollado con **Next.js** y **TypeScript**. La aplicación permite la gestión de permisos y tipos de permisos, incluyendo autenticación, búsqueda avanzada con **Elasticsearch**, y un diseño moderno utilizando **Hero UI** y **Tailwind CSS**.
 
-[Try it on CodeSandbox](https://githubbox.com/heroui-inc/heroui/next-app-template)
+## Tecnologías Utilizadas
 
-## Technologies Used
+- **Next.js** (con App Router y TypeScript)
+- **Tailwind CSS** para estilos rápidos y responsivos
+- **Hero UI** para componentes preconstruidos
+- **Zustand** para la gestión del estado global
+- **Axios** para las solicitudes HTTP al backend
+- **Elasticsearch** para la búsqueda avanzada de permisos
 
-- [Next.js 14](https://nextjs.org/docs/getting-started)
-- [HeroUI v2](https://heroui.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+## Estructura del Proyecto
 
-## How to Use
-
-### Use the template with create-next-app
-
-To create a new project based on this template using `create-next-app`, run the following command:
-
-```bash
-npx create-next-app -e https://github.com/heroui-inc/next-app-template
+```
+📁 n5-reto-tecnico-ui
+├── app
+│   ├── auth
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── permissions
+│   │   └── list
+│   │       └── page.tsx
+│   ├── permissionTypes
+│   │   └── list
+│   │       └── page.tsx
+│   ├── layout.tsx
+│   └── page.tsx  // Página principal con integración de Elasticsearch
+├── components
+│   ├── conditionalNavbar.tsx
+│   ├── fullScreenSpinner.tsx
+│   ├── navbar.tsx  // Barra de navegación con campo de búsqueda integrado
+│   ├── permissionDrawer.tsx
+│   ├── permissionTable.tsx
+│   ├── permissionTypeDrawer.tsx
+│   └── permissionTypeTable.tsx
+├── config
+│   ├── api.ts  // Configuración de Axios con manejo de JWT
+│   ├── fonts.ts
+│   └── site.ts
+├── hooks
+│   ├── useAuth.ts  // Hook para manejar autenticación
+│   └── useAuthGuard.ts
+├── services
+│   ├── authService.ts
+│   ├── permissionService.ts  // Servicios para permisos y búsqueda en Elasticsearch
+│   └── permissionTypeService.ts
+├── store
+│   ├── authStore.ts  // Gestión de autenticación con Zustand
+│   ├── permissionDrawerStore.ts
+│   └── permissionTypeDrawerStore.ts
+├── styles
+│   └── globals.css  // Estilos globales con Tailwind
+├── types
+│   ├── index.ts
+│   ├── permission.ts  // Tipos de permisos y tipos de permisos
+│   └── permissionType.ts
+└── utils
+    └── notificationHandler.ts  // Manejo de notificaciones con Sonner
 ```
 
-### Install dependencies
+## Instalación
 
-You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
+1. Clona el repositorio:
 
-```bash
-npm install
-```
+   ```bash
+   git clone https://github.com/tu_usuario/n5-reto-tecnico-ui.git
+   cd n5-reto-tecnico-ui
+   ```
 
-### Run the development server
+2. Instala las dependencias:
 
-```bash
-npm run dev
-```
+   ```bash
+   npm install
+   ```
 
-### Setup pnpm (optional)
+3. Configura las variables de entorno en `.env.local`:
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
+   ```bash
+   NEXT_PUBLIC_API_URL=http://localhost:5215/api
+   ```
 
-```bash
-public-hoist-pattern[]=*@heroui/*
-```
+4. Inicia el servidor de desarrollo:
+   ```bash
+   npm run dev
+   ```
 
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
+La aplicación estará disponible en `http://localhost:3000`.
 
-## License
+## Funcionalidades
 
-Licensed under the [MIT license](https://github.com/heroui-inc/next-app-template/blob/main/LICENSE).
+### 1. **Autenticación**
+
+- El sistema de login utiliza **JWT** para la autenticación.
+- Al iniciar sesión, el token se almacena en `localStorage` y cookies.
+
+### 2. **Gestión de Permisos y Tipos de Permisos**
+
+- **Listado de Permisos:** Se muestra en una tabla con paginación y búsqueda integrada.
+- **Creación/Edición de Permisos:** Utiliza un **Drawer** para formularios dinámicos.
+- **Listado de Tipos de Permisos:** Similar a la gestión de permisos, con su propia tabla y drawer.
+
+### 3. **Búsqueda Avanzada con Elasticsearch**
+
+- El campo de búsqueda en la **Navbar** permite realizar búsquedas en **Elasticsearch**.
+- Al presionar **Enter**, los resultados se muestran en la página principal (`/`) en formato de tabla.
+
+### 4. **Manejo de Estado Global**
+
+- **Zustand** gestiona el estado global para la autenticación y los formularios de permisos/tipos de permisos.
+
+### 5. **Notificaciones**
+
+- **Sonner** se utiliza para mostrar notificaciones de éxito o error durante las operaciones CRUD.
+
+## Scripts Disponibles
+
+- `npm run dev`: Inicia el servidor de desarrollo.
+- `npm run build`: Compila la aplicación para producción.
+- `npm run start`: Inicia la aplicación en modo producción.
+- `npm run lint`: Corre ESLint para asegurar la calidad del código.
+
+## Contribuciones
+
+1. Haz un fork del repositorio.
+2. Crea una nueva rama (`git checkout -b feature/nueva-funcionalidad`).
+3. Realiza tus cambios y haz commit (`git commit -m 'Agrega nueva funcionalidad'`).
+4. Empuja tu rama (`git push origin feature/nueva-funcionalidad`).
+5. Abre un Pull Request.
+
+## Licencia
+
+Este proyecto está bajo la licencia MIT.
+
+---
+
+¡Gracias por revisar este proyecto! 🚀 Si tienes alguna duda o sugerencia, no dudes en abrir un issue o contactarme directamente.

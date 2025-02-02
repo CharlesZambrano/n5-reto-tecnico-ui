@@ -2,45 +2,15 @@
 
 "use client";
 
-import { Alert } from "@heroui/react";
-import { useEffect, useState } from "react";
-
-import api from "@/config/api";
-import { useAuthGuard } from "@/hooks/useAuthGuard";
+import { PermissionTable } from "@/components/permissionTable";
 
 export default function PermissionListPage() {
-  useAuthGuard(); // Protección de la ruta
-
-  const [permissions, setPermissions] = useState([]);
-
-  useEffect(() => {
-    const fetchPermissions = async () => {
-      try {
-        const response = await api.get("/permission");
-
-        setPermissions(response.data);
-      } catch (error) {
-        <Alert
-          description={String(error)}
-          title={"Error fetching permissions:"}
-        />;
-      }
-    };
-
-    fetchPermissions();
-  }, []);
-
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">Permissions List</h1>
-      <ul>
-        {permissions.map((permission: any) => (
-          <li key={permission.id}>
-            {permission.employeeName} {permission.employeeSurname} -{" "}
-            {permission.permissionType.description}
-          </li>
-        ))}
-      </ul>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold text-gray-800">Permissions</h1>
+      </div>
+      <PermissionTable />
     </div>
   );
 }

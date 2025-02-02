@@ -2,6 +2,7 @@
 
 "use client";
 
+import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -23,12 +24,12 @@ export const useAuth = () => {
       if (response.token) {
         setToken(response.token);
         localStorage.setItem("jwtToken", response.token);
+        Cookies.set("jwtToken", response.token, { expires: 1 });
 
-        // Asignamos el nombre de usuario de forma estática
         if (username.toLowerCase() === "admin") {
-          localStorage.setItem("username", "Administrador");
+          localStorage.setItem("username", "Administrator");
         } else if (username.toLowerCase() === "user") {
-          localStorage.setItem("username", "Usuario");
+          localStorage.setItem("username", "User");
         } else {
           localStorage.setItem("username", username);
         }
@@ -54,6 +55,7 @@ export const useAuth = () => {
     clearAuth();
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("username");
+    Cookies.remove("jwtToken");
     router.push("/auth");
   };
 
