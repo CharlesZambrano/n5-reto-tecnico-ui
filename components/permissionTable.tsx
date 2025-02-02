@@ -17,7 +17,7 @@ import {
 import { useCallback, useMemo, useState } from "react";
 import useSWR from "swr";
 
-import { SearchIcon } from "./icons";
+import { PencilIcon, SearchIcon } from "./icons";
 import { PermissionDrawer } from "./permissionDrawer";
 
 import { getPermissions } from "@/services/permissionService";
@@ -130,9 +130,13 @@ export const PermissionTable = () => {
                 {new Date(item.permissionDate).toLocaleDateString()}
               </TableCell>
               <TableCell>
-                <Button color="secondary" onPress={() => openDrawer(item)}>
-                  Edit
-                </Button>
+                <button
+                  aria-label="Edit Permission"
+                  className="p-2 rounded-md hover:bg-gray-200 transition"
+                  onClick={() => openDrawer(item)}
+                >
+                  <PencilIcon className="text-yellow-600" size={18} />
+                </button>
               </TableCell>
             </TableRow>
           )}
